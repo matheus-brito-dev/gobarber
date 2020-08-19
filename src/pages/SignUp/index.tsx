@@ -31,7 +31,7 @@ const SignUp: React.FC = () => {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-            nome: Yup.string().required('Nome obrigatório'),
+            name: Yup.string().required('Nome obrigatório'),
             email: Yup.string()
                 .required('Email obrigatório')
                 .email('Digite um email válido'),
@@ -42,15 +42,16 @@ const SignUp: React.FC = () => {
         await schema.validate(data, {
             abortEarly: false,
         });
+        console.log(data);
         await api.post('/users',data);
-
-        history.push('/');
 
         addToast({
             type:'success',
             title: 'Cadastro realizado',
-            description: 'Você já pode fazer seu logon no GoBarber',
+            description: 'Você já pode fazer seu logon no GoBarber!',
         });
+
+        history.push('/');
 
        }catch(err){
         if(err instanceof Yup.ValidationError){
@@ -79,7 +80,7 @@ const SignUp: React.FC = () => {
 
                     <Input
                     icon={FiUser}
-                    name="nome"
+                    name="name"
                     placeholder="Nome" />
 
                     <Input
